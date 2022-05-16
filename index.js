@@ -43,7 +43,7 @@ async function main() {
   const contractInstantiateTransaction = new ContractCreateTransaction()
   .setBytecodeFileId(bytecodeFileId)
   .setGas(100000)
-  .setConstructorParameters(new ContractFunctionParameters().addString("Gene").addUint256(1000))
+  .setConstructorParameters(new ContractFunctionParameters().addString("mahmoud").addUint256(1000))
 
 
   const contractInstantiateSubmit = await contractInstantiateTransaction.execute(client)
@@ -64,8 +64,7 @@ async function main() {
     const contractQueryTransaction = new ContractCallQuery()
     .setContractId(contractId)
     .setGas(100000)
-    .setFunction("getAmount",new ContractFunctionParameters().addString(donerName))
-    .setMaxQueryPayment(new Hbar(0.00000001));
+    .setFunction("getAmount",new ContractFunctionParameters().addString(donerName));
     const contractQuerySubmit = await contractQueryTransaction.execute(client);
   
     const contractQueryResult = contractQuerySubmit.getUint256(0)
@@ -79,15 +78,14 @@ async function main() {
     .setContractId(contractId)
     .setGas(100000)
     .setFunction("setAmount",new ContractFunctionParameters().addString(donerName).addUint256(amount))
-    .setMaxTransactionFee(new Hbar(0.75))
   
     const contractExecuteSubmit = await contractExecuteTransaction.execute(client)
     const contractExecuteReceipt = await contractExecuteSubmit.getReceipt(client)
     console.log(" contract status : " + contractExecuteReceipt.status.toString())
 
   }
-  setAmount("mahmoud",100)
-  console.log(getAmountByName("Gene"))
+  await setAmount("redApple",163)
+  console.log(getAmountByName("redApple"))
 
 
 
